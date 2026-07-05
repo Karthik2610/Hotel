@@ -1,0 +1,165 @@
+﻿@model HotelProject.Models.ViewModel.SearchViewModel
+<h4>Customer Details</h4>
+<div class="row">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-3">
+
+                        
+
+        <div class="form-group">
+            <label asp-for="customerDetails.FirstName" class="control-label"></label>
+            <input asp-for="customerDetails.FirstName" class="form-control" />
+            <span asp-validation-for="customerDetails.FirstName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.LastName" class="control-label"></label>
+            <input asp-for="customerDetails.LastName" class="form-control" />
+            <span asp-validation-for="customerDetails.LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.Email" class="control-label"></label>
+            <input asp-for="customerDetails.Email" class="form-control" />
+            <span asp-validation-for="customerDetails.Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.PhoneNumber" class="control-label"></label>
+            <input asp-for="customerDetails.PhoneNumber" class="form-control" />
+            <span asp-validation-for="customerDetails.PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.Address1" class="control-label"></label>
+            <input asp-for="customerDetails.Address1" class="form-control" />
+            <span asp-validation-for="customerDetails.Address1" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.Address2" class="control-label"></label>
+            <input asp-for="customerDetails.Address2" class="form-control" />
+            <span asp-validation-for="customerDetails.Address2" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.GST" class="control-label"></label>
+            <input asp-for="customerDetails.GST" class="form-control" />
+            <span asp-validation-for="customerDetails.GST" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.City" class="control-label"></label>
+            <input asp-for="customerDetails.City" class="form-control" />
+            <span asp-validation-for="customerDetails.City" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.State" class="control-label"></label>
+            <input asp-for="customerDetails.State" class="form-control" />
+            <span asp-validation-for="customerDetails.State" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.PinCode" class="control-label"></label>
+            <input asp-for="customerDetails.PinCode" class="form-control" />
+            <span asp-validation-for="customerDetails.PinCode" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.AadharCardNumber" class="control-label"></label>
+            <input asp-for="customerDetails.AadharCardNumber" class="form-control" />
+            <span asp-validation-for="customerDetails.AadharCardNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.PanCardNumber" class="control-label"></label>
+            <input asp-for="customerDetails.PanCardNumber" class="form-control" />
+            <span asp-validation-for="customerDetails.PanCardNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.DrivingLicenseNumber" class="control-label"></label>
+            <input asp-for="customerDetails.DrivingLicenseNumber" class="form-control" />
+            <span asp-validation-for="customerDetails.DrivingLicenseNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.PassportNumber" class="control-label"></label>
+            <input asp-for="customerDetails.PassportNumber" class="form-control" />
+            <span asp-validation-for="customerDetails.PassportNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="customerDetails.Others" class="control-label"></label>
+            <input asp-for="customerDetails.Others" class="form-control" />
+            <span asp-validation-for="customerDetails.Others" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="AdvanceAmount" class="control-label"></label>
+            <input asp-for="AdvanceAmount" class="form-control" />
+            <span asp-validation-for="AdvanceAmount" class="text-danger"></span>
+        </div>
+    </div>
+    <h4>Room Details</h4>
+    <div class="row">
+        <table class="table table-bordered" style="width:auto;">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Rooms</th>
+                    <th>Extra Beds</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.RoomsViewModel?.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <input asp-for="RoomsViewModel[i].IsSelected" class="form-check-input" />
+                        </td>
+
+                        <td>
+                            @Model.RoomsViewModel[i].RoomName
+                            <input asp-for="RoomsViewModel[i].RoomID" type="hidden" />
+                            <input asp-for="RoomsViewModel[i].RoomName" type="hidden" />
+                        </td>
+                        @*
+                                <td>
+                                    <input asp-for="RoomsViewModel[i].TotalRooms"
+                                           class="form-control"
+                                           type="number" min="0" max="@Model.RoomsViewModel[i].TotalRooms" />
+                                </td> *@
+
+                        <td>
+                            <div class="col-md-6">
+                                <input asp-for="RoomsViewModel[i].ExtraBeds"
+                                       class="form-control"
+                                       type="number" min="0" />
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+   
+
+</div>

@@ -1,0 +1,99 @@
+﻿@model HotelProject.Models.ViewModel.SearchViewModel
+<div class="row">
+    <form asp-action="Index" asp-controller="Booking">
+        <script>
+              function confirmSave(action) {
+        return confirm("Are you sure you want to " + action + " this booking?");
+    }
+    </script>
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <span>@TempData["SuccessMessage"]</span>
+            </div>
+        }
+        else if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-warning">
+                <span>@TempData["ErrorMessage"]</span>
+            </div>
+        }
+        <div class="row g-3">
+            <div class="col-md-3">
+
+                <label asp-for="CheckInDate" class="form-label"></label>
+                <input asp-for="CheckInDate" type="date" class="form-control" />
+                <span asp-validation-for="CheckInDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="CheckOutDate" class="form-label"></label>
+                <input asp-for="CheckOutDate" type="date" class="form-control" />
+                <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3" style="padding-top:5px;">
+                <button type="submit" class="btn btn-primary mt-4" name="action" value="Search">
+                    Search
+                </button>
+            </div>
+        </div>
+        <br />
+
+        @if (Model != null && (Model.SearchAction == "Search"))
+        {
+            <h4>Booking Details</h4>
+            @if (Model != null && Model.ListModel != null && Model.ListModel.Rows.Count > 0)
+            {
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Room Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone Number</th>
+                            <th>Details</th>   
+                            <th>Booking Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow row in Model.ListModel.Rows)
+                        {
+                            <tr>
+                                @* @foreach (var item in row.ItemArray)
+                                { *@
+                                <td>@row["Booking ID"]</td>
+                                <td>@row["Room Name"]</td>
+                                <td>@row["First Name"]</td>
+                                <td>@row["Last Name"]</td>
+                                <td>@row["Phone Number"]</td>
+                                <td>@row["Details"]</td>
+                                <td>@row["BookingStatus"]</td>
+                                <td> <a class="btn btn-primary" asp-area="" asp-controller="Booking" asp-action="Edit" name="action" asp-route-id="@row["Booking ID"]">Edit</a></td>
+                                @* } *@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    No Booking found.
+                </div>
+            }
+        }
+        @if (Model != null && (Model.CreateEditAction == "Create Booking"))
+        {
+           @await  Html.PartialAsync("_Partial/_CustomerDetails", Model)
+
+            <div class="form-group">
+                <input type="submit" id="createBooking" onclick="return confirmSave('Create Booking');" value="Create Booking" class="btn btn-primary" name="action" />
+                <input type="submit" id="createBookingAndCheckIn" onclick="return confirmSave('Create Booking and Check-in');" value="Create Booking and Check-in" class="btn btn-primary" name="action" />
+            </div>
+        }
+    </form>
+
+    
+
+</div>

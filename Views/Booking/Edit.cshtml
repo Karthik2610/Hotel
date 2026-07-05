@@ -1,0 +1,55 @@
+﻿@model HotelProject.Models.ViewModel.SearchViewModel
+<div class="row">
+      <form asp-action="Edit" asp-controller="Booking">
+          <script>
+              function confirmSave(action) {
+        return confirm("Are you sure you want to " + action + " this booking?");
+    }
+     $(document).ready(function () {             
+              var action = '@Model.CreateEditAction';
+             if(action == "HideButtons")
+             {   
+                 $("#checkInBooking").hide();
+                 $("#cancelBooking").hide();                 
+             }
+             else
+             {
+                    $("#checkInBooking").show();
+                    $("#cancelBooking").show();
+                    
+             }
+         });
+              </script>
+        @Html.Hidden("customerDetails.CustomerID", Model.customerDetails.CustomerID)      
+        @Html.Hidden("BookingID", Model.BookingID)
+        @Html.Hidden("CreateEditAction", Model.CreateEditAction)
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <span>@TempData["SuccessMessage"]</span>
+            </div>
+        }
+         <div class="row g-3">
+            <div class="col-md-3">
+
+                <label asp-for="CheckInDate" class="form-label"></label> : 
+                <label asp-for="CheckInDate" class="form-label">@Model.CheckInDate?.ToString("dd-MM-yyyy")</label>                
+                <span asp-validation-for="CheckInDate" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="CheckOutDate" class="form-label"></label> : 
+                <label asp-for="CheckOutDate" class="form-label">@Model.CheckOutDate?.ToString("dd-MM-yyyy")</label>
+                <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+            </div>
+            
+        </div>
+        @await Html.PartialAsync("_Partial/_CustomerDetails", Model)
+        <div class="form-group">
+            <input type="submit" id="editBooking" onclick="return confirmSave('Edit');" value="Edit" class="btn btn-primary" name="action" />
+            <input type="submit" id="checkInBooking" onclick="return confirmSave('Check-in');" value="Check-in" class="btn btn-primary" name="action" />
+            <input type="submit" id="cancelBooking" onclick="return confirmSave('Cancel Booking');" value="Cancel Booking" class="btn btn-primary" name="action" />
+            <input type="submit" id="checkOutBooking" onclick="return confirmSave('Check-out');" value="Check-out" class="btn btn-primary" name="action" asp-action="CheckOut" asp-controller="Booking" />
+            <a  asp-area="" asp-controller="Booking" asp-action="Index" class="btn btn-primary">Back</a>
+        </div>
+      </form>
+</div>
